@@ -35,7 +35,7 @@ public interface bookMapper {
 	@ResultMap(value="book")
 	Books findBookid(String id);
 	
-	@Insert("insert into book(id,bookname,booktype,author,publisher,stock)value(#{id},#{bookname},#{booktype},{author},#{publisher},#{stock})")
+	@Insert("insert into book(id,bookname,booktype,author,publisher,stock)value(#{id},#{bookname},#{booktype},#{author},#{publisher},#{stock})")
 	Boolean addBook(Books book);
 	
 	@Update("update book set stock=#{stock} where id=#{id}")

@@ -25,7 +25,7 @@ public interface borrowMapper {
 	@Select("select * from borrow")
 	List<Borrow> getlist();
 	
-	@Update("update borrow set back_date=#{backDate} where id=#{id}")
+	@Update("update borrow set back_date=#{backDate},if_ack=#{isBack} where id=#{id}")
 	Boolean upBorrow(Borrow borrow);
 	
 	@Insert("insert into borrow(book_id,reader_id,if_back,borrow_date)value(#{bookId},#{readerId},#{isBack},#{borrowDate}")

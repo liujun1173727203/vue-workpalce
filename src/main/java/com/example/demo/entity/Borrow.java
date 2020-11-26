@@ -2,8 +2,14 @@ package com.example.demo.entity;
 
 import java.sql.Date;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel
 public class Borrow {
+	@ApiModelProperty(value="记录id")
 	private String id;
+	@ApiModelProperty(value="记录id")
 	private String readerId;
 	private String bookId;
 	private Date borrowDate;
