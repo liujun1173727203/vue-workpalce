@@ -24,14 +24,20 @@ public interface userMapper {
 			@Result(column="sex",property="sex",jdbcType=JdbcType.VARCHAR),
 			@Result(column="usertype",property="usertype",jdbcType=JdbcType.VARCHAR),
 			@Result(column="max_num",property="maxNum",jdbcType=JdbcType.VARCHAR),
+			@Result(column="account",property="account",jdbcType=JdbcType.VARCHAR),
 	})
 	List<Users> getUsers();
 	
 	@Select("select * from user where is_admin=#{isAdmin}")
 	@ResultMap(value="Users")
 	Users findUser(String isAdmin);
+
+	@Select("select * from user where username like #{username}")
+	@ResultMap(value="Users")
+	List<Users> findUsers(String username);
+
 	
-	@Select("select * from user where readerid=#{readerid}")
+	@Select("select * from user where account=#{readerid}")
 	@ResultMap(value="Users")
 	Users login(String readerid);
 	

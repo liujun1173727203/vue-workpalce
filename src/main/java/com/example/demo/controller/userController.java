@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,14 +34,14 @@ public class userController {
 	
 	@ApiOperation("用户登录")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="readerid",value="用户id",required=true),
+		@ApiImplicitParam(name="account",value="用户账号",required=true),
 		@ApiImplicitParam(name="password",value="用户密码",required=true)
 	})
 	@RequestMapping(value="/login",method = RequestMethod.POST)
-	public ResponseEntity<Map<String,Object>> login(@RequestParam(value="readerid") String username,@RequestParam(value="password") String password) {
+	public ResponseEntity<Map<String,Object>> login(@RequestParam(value="account") String username,@RequestParam(value="password") String password) {
 		Map<String,Object> map =new HashMap<String,Object>();
 		if(userserver.login(username, password)) {
-			Users user=userserver.findUsername(username);
+			Users user=userserver.findByAccount(username);
 			map.put("msg", "登陆成功");
 			map.put("username",user.getUsername());
 			if("是".equals(user.getIsAdmin())) {
@@ -62,6 +63,16 @@ public class userController {
 	@RequestMapping(value="/deluser/{id}",method=RequestMethod.GET)
 	public Boolean delUser(@PathVariable int id) {
 		return userserver.delUser(id);
+	}
+	@ApiOperation("查找用户")	
+	@RequestMapping(value="/findbyname",method=RequestMethod.GET)
+	public List<Users> findByName(@Param(value="username") String username) {
+		return userserver.findUsername(username);
+	}
+	@ApiOperation("查找用户")	
+	@RequestMapping(value="/findbyaccount",method=RequestMethod.GET)
+	public Users findByAccount(@Param(value="account") String account) {
+		return userserver.findByAccount(account);
 	}
 	@ApiOperation("添加用户信息")
 	@RequestMapping(value="/adduser",method=RequestMethod.POST)

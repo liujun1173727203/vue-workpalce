@@ -28,7 +28,7 @@ public class bookController {
 	}
 	@ApiOperation("根据书名查询书籍信息")	
 	@RequestMapping(value="/find_name/{bookname}",method=RequestMethod.GET)
-	public Books findBookName(@PathVariable String bookname) {
+	public List<Books> findBookName(@PathVariable String bookname) {
 		return bookserver.findBookname(bookname);
 	}
 	@ApiOperation("根据书籍id查询书籍信息")

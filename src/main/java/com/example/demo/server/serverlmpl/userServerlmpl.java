@@ -55,10 +55,17 @@ public class userServerlmpl implements userServer{
 	}
 
 	@Override
-	public Users findUsername(String username) {
-		Users user=usermapper.login(username);
+	public List<Users> findUsername(String username) {
+		List<Users> users=usermapper.findUsers('%'+username+'%');
+		for (Users user : users) { 
 		user.setPassword("*****");
-		return user;
+		}
+		return users;
+	}
+
+	@Override
+	public Users findByAccount(String account) {
+		return usermapper.login(account);
 	}
 
 }

@@ -27,9 +27,9 @@ public interface bookMapper {
 	@Select("select * from book")
 	List<Books> getlist();
 	
-	@Select("select * from book where bookname=#{bookname}")
+	@Select("select * from book where bookname like #{bookname}")
 	@ResultMap(value="book")
-	Books findBookname(String bookname);
+	List<Books> findBookname(String bookname);
 	
 	@Select("select * from book where id=#{id}")
 	@ResultMap(value="book")

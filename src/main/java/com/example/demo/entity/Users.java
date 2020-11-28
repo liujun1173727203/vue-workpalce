@@ -9,6 +9,14 @@ public class Users {
 	private int readerId;
 	@ApiModelProperty(value="用户名")
 	private String username;
+	@ApiModelProperty(value="账号")
+	private String account;
+	public String getAccount() {
+		return account;
+	}
+	public void setAccount(String account) {
+		this.account = account;
+	}
 	@ApiModelProperty(value="用户密码")
 	private String password;
 	@ApiModelProperty(value="用户是否拥有管理员权限")

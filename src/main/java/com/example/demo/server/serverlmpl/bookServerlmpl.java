@@ -21,9 +21,10 @@ public class bookServerlmpl implements bookServer{
 	}
 
 	@Override
-	public Books findBookname(String bookname) {
-		// TODO Auto-generated method stub
-		return bookmapper.findBookname(bookname);
+	public List<Books> findBookname(String bookname) {
+		// TODO Auto-generated method st
+		System.out.println('%'+bookname+'%');
+		return bookmapper.findBookname('%'+bookname+'%');
 	}
 
 	@Override
