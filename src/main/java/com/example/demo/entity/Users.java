@@ -11,6 +11,7 @@ public class Users {
 	private String username;
 	@ApiModelProperty(value="账号")
 	private String account;
+	private int max_num;
 	public String getAccount() {
 		return account;
 	}
@@ -68,5 +69,11 @@ public class Users {
 	}
 	public void setIsAdmin(String isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+	public int getMax_num() {
+		return max_num;
+	}
+	public void setMax_num(int max_num) {
+		this.max_num = max_num;
 	}
 }

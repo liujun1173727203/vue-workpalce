@@ -60,7 +60,7 @@ public class userController {
 		return userserver.getUsers();
 	}
 	@ApiOperation("删除用户")	
-	@RequestMapping(value="/deluser/{id}",method=RequestMethod.GET)
+	@RequestMapping(value="/deluser/{id}",method=RequestMethod.DELETE)
 	public Boolean delUser(@PathVariable int id) {
 		return userserver.delUser(id);
 	}

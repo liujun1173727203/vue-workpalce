@@ -23,7 +23,7 @@ public interface userMapper {
 			@Result(column="is_admin",property="isAdmin",jdbcType=JdbcType.VARCHAR),
 			@Result(column="sex",property="sex",jdbcType=JdbcType.VARCHAR),
 			@Result(column="usertype",property="usertype",jdbcType=JdbcType.VARCHAR),
-			@Result(column="max_num",property="maxNum",jdbcType=JdbcType.VARCHAR),
+			@Result(column="max_num",property="maxNum",jdbcType=JdbcType.INTEGER),
 			@Result(column="account",property="account",jdbcType=JdbcType.VARCHAR),
 	})
 	List<Users> getUsers();
@@ -41,7 +41,11 @@ public interface userMapper {
 	@ResultMap(value="Users")
 	Users login(String readerid);
 	
-	@Insert("insert into user(username,password,is_admin)value(#{username},#{password},#{isAdmin})")
+	@Select("select * from user where readerid=#{readerid}")
+	@ResultMap(value="Users")
+	Users findById(String id);
+	
+	@Insert("insert into user(username,password,is_admin,sex,usertype,max_num)value(#{username},#{password},#{isAdmin},#{sex},#{usertype},#{max_num})")
 	Boolean addUser(Users user);
 	
 	@Delete("delete from user where readerid=#{readerid}")

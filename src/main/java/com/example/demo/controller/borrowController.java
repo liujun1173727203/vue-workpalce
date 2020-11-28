@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Borrow;
+import com.example.demo.entity.BorrowInfo;
 import com.example.demo.server.borrowServer;
 
 import io.swagger.annotations.Api;
@@ -24,7 +25,7 @@ public class borrowController {
 	private borrowServer borrowserver;
 	@ApiOperation("获取借阅记录列表")
 	@RequestMapping(value="/getlist",method=RequestMethod.GET)
-	public List<Borrow> getList(){
+	public List<BorrowInfo> getList(){
 		return borrowserver.getList();
 	}
 	@ApiOperation("更新借阅记录列表")	
