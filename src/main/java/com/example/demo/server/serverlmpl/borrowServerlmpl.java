@@ -29,9 +29,9 @@ public class borrowServerlmpl implements borrowServer{
 	public List<BorrowInfo> getList() {
 		List<BorrowInfo> lists =new ArrayList<BorrowInfo>();
 		for(Borrow i : borrowmapper.getlist()){
-			System.out.println(i.getId());
+//			System.out.println(i.getId()+"```"+i.getBookId()+"```"+i.getReaderId());
 			Users user =usermapper.findById(i.getReaderId());
-			Books book =bookmapper.findBookid(i.getBookId().substring(1));
+			Books book =bookmapper.findBookid(i.getBookId());
 			BorrowInfo info = new BorrowInfo();
 			info.setAccount(user.getAccount());
 			info.setAuthor(book.getAuthor());

@@ -16,8 +16,8 @@ import com.example.demo.entity.Borrow;
 public interface borrowMapper {
 	@Results(id="borrow",value= {
 			@Result(column="id",property="id",jdbcType=JdbcType.VARCHAR),
-			@Result(column="book_id",property="bookId",jdbcType=JdbcType.VARCHAR),
-			@Result(column="reader_id",property="readerId",jdbcType=JdbcType.VARCHAR),
+			@Result(column="bookid",property="bookId",jdbcType=JdbcType.VARCHAR),
+			@Result(column="readerid",property="readerId",jdbcType=JdbcType.VARCHAR),
 			@Result(column="if_back",property="isBack",jdbcType=JdbcType.VARCHAR),
 			@Result(column="borrow_date",property="borrowDate",jdbcType=JdbcType.DATE),
 			@Result(column="back_date",property="backDate",jdbcType=JdbcType.DATE),

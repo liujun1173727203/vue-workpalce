@@ -37,13 +37,13 @@ public interface userMapper {
 	List<Users> findUsers(String username);
 
 	
-	@Select("select * from user where account=#{readerid}")
+	@Select("select * from user where account=#{account}")
 	@ResultMap(value="Users")
-	Users login(String readerid);
+	Users login(String account);
 	
 	@Select("select * from user where readerid=#{readerid}")
 	@ResultMap(value="Users")
-	Users findById(String id);
+	Users findById(String readerid);
 	
 	@Insert("insert into user(username,password,is_admin,sex,usertype,max_num)value(#{username},#{password},#{isAdmin},#{sex},#{usertype},#{max_num})")
 	Boolean addUser(Users user);
