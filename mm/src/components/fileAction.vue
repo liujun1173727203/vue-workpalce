@@ -1,30 +1,19 @@
 <template>
   <div>
     <div class="contain">
-      <div class="show_file">
+      <div
+        class="show_file"
+        v-for="(item, index) in fileNameList"
+        :key="index"
+        @click="download(index)"
+      >
         <img class="img" src="../assets/文件.png" />
+        <p class="img_info">{{ item.split("-")[2] }}</p>
       </div>
-      <div class="show_file">
-        <img class="img" src="../assets/文件.png" />
+      <div class="show_file" @click="turnTo()">
+        <img id="add" class="img" src="../assets/add.png" />
+        <p class="img_info">添加文件</p>
       </div>
-
-      <div class="show_file">
-        <img class="img" src="../assets/文件.png" />
-      </div>
-
-      <div class="show_file">
-        <img class="img" src="../assets/文件.png" />
-      </div>
-
-      <div class="show_file">
-        <img class="img" src="../assets/文件.png" />
-      </div>
-
-      <div class="show_file">
-        <img class="img" src="../assets/文件.png" />
-      </div>
-
-      <img id="add" src="../assets/add.png" @click="turnTo()" />
     </div>
     <input
       type="file"
@@ -39,9 +28,50 @@
 export default {
   name: "file",
   data() {
-    return {};
+    return {
+      fileNameList: [],
+    };
+  },
+  created() {
+    this.checkfile();
   },
   methods: {
+    checkfile() {
+      this.$http({
+        url: "/api/checkload",
+        params: {
+          id: window.sessionStorage.getItem("localuserid"),
+        },
+      }).then((res) => {
+        this.fileNameList = res.data;
+      });
+    },
+    download(index) {
+      this.$confirm('选择操作',{
+        distinguishCancelAndClose:true,
+        confirmButtonText:'下载',
+        cancelButtonText:'删除',
+      }).then(()=>{
+        var a = document.createElement("a");
+            a.href = "/api/download?name=" + this.fileNameList[index];
+            console.log(a.href);
+            a.click();
+      })
+      .catch(action=>{
+        if(action ==="cancel"){
+          this.$http({
+            url:'/api/deletefile',
+            params:{
+              name:this.fileNameList[index]
+            }
+          }).then(res=>{
+            this.$message(res.data)
+          })
+          this.$router.go(0)
+        }
+      })
+      
+    },
     turnTo() {
       document.getElementById("fileExport").click();
     },
@@ -49,8 +79,8 @@ export default {
       console.log(event.target.files);
       var formdata = new FormData();
       formdata.append("file", event.target.files[0]);
-      formdata.append("userinfo",window.sessionStorage.getItem("localuserid"))
-    //   formdata.append("userinfo", 10);
+      formdata.append("userinfo", window.sessionStorage.getItem("localuserid"));
+      //   formdata.append("userinfo", 10);
       this.upload(formdata);
     },
     upload(formdata) {
@@ -65,31 +95,35 @@ export default {
         .then((res) => {
           this.$message(res.data);
         })
-        .catch((err) => {
-          this.$message(err)
-        });
+        .catch((err) => {});
+      this.$router.go(0);
     },
   },
 };
 </script>
 <style scoped>
-#add {
-  width: 100px;
-}
 .contain {
   display: flex;
-      height: 100px;
-    overflow-x: hidden;
+  height: 100px;
+  overflow-x: hidden;
   flex-flow: wrap;
 }
 .contain::-webkit-scrollbar {
   width: 10px;
 }
-.show_file{
-    padding-left: 8px;
+.show_file {
+  padding-left: 8px;
 }
 .img {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
+}
+.img_info {
+  margin: 0px;
+  margin-top: -7px;
+  height: 20px;
+  width: 80px;
+  text-align: center;
+  word-break: break-all;
 }
 </style>
